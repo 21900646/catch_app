@@ -1,117 +1,293 @@
+// import 'dart:async';
+// import 'dart:io';
+//
+// import 'package:camera/camera.dart';
+// import 'package:flutter/material.dart';
+// import 'package:path/path.dart' show join;
+// import 'package:path_provider/path_provider.dart';
+//
+// Future<void> main() async {
+//   // 디바이스에서 이용가능한 카메라 목록을 받아옵니다.
+//   WidgetsFlutterBinding.ensureInitialized();
+//   final cameras = await availableCameras();
+//
+//   // 이용가능한 카메라 목록에서 특정 카메라를 얻습니다.
+//   final firstCamera = cameras.first;
+//
+//   runApp(
+//     MaterialApp(
+//       theme: ThemeData.dark(),
+//       home: TakePictureScreen(
+//         // 적절한 카메라를 TakePictureScreen 위젯에게 전달합니다.
+//         camera: firstCamera,
+//       ),
+//     ),
+//   );
+// }
+//
+// // 사용자가 주어진 카메라를 사용하여 사진을 찍을 수 있는 화면
+// class TakePictureScreen extends StatefulWidget {
+//   final CameraDescription camera;
+//
+//   const TakePictureScreen({required this.camera,
+//   });
+//
+//   @override
+//   TakePictureScreenState createState() => TakePictureScreenState();
+// }
+//
+// class TakePictureScreenState extends State<TakePictureScreen> {
+//   late CameraController _controller;
+//   Future<void>? _initializeControllerFuture;
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//     // 카메라의 현재 출력물을 보여주기 위해 CameraController를 생성합니다.
+//
+//       _controller = CameraController(
+//         // 이용 가능한 카메라 목록에서 특정 카메라를 가져옵니다.
+//         widget.camera,
+//         // 적용할 해상도를 지정합니다.
+//         ResolutionPreset.medium,
+//       );
+//
+//       //take picture one by one
+//       // _controller?.initialize().then((_) async {
+//       //   _controller?.startImageStream((CameraImage img) async {
+//       //     print("here!!!!");
+//       //     //caller();
+//       //   });
+//       // });
+//   }
+//
+//   @override
+//   void dispose() {
+//     // 위젯의 생명주기 종료시 컨트롤러 역시 해제시켜줍니다.
+//     _controller.dispose();
+//     super.dispose();
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(title: Text('Take a picture')),
+//       // 카메라 프리뷰를 보여주기 전에 컨트롤러 초기화를 기다려야 합니다. 컨트롤러 초기화가
+//       // 완료될 때까지 FutureBuilder를 사용하여 로딩 스피너를 보여주세요.
+//       body: FutureBuilder<void>(
+//         future: _initializeControllerFuture,
+//         builder: (context, snapshot) {
+//           if (snapshot.connectionState == ConnectionState.done) {
+//             // Future가 완료되면, 프리뷰를 보여줍니다.
+//             //caller();
+//             return CameraPreview(_controller);
+//           } else {
+//             // 그렇지 않다면, 진행 표시기를 보여줍니다.
+//             return Center(child: CircularProgressIndicator());
+//           }
+//         },
+//       ),
+//     );
+//   }
+//
+//   Future<void> caller() async {
+//     try {
+//       // 카메라 초기화가 완료됐는지 확인합니다.
+//       await _initializeControllerFuture;
+//
+//       // path 패키지를 사용하여 이미지가 저장될 경로를 지정합니다.
+//       final path = join(
+//         // 본 예제에서는 임시 디렉토리에 이미지를 저장합니다. `path_provider`
+//         // 플러그인을 사용하여 임시 디렉토리를 찾으세요.
+//           (await getTemporaryDirectory()).path,
+//           '${DateTime.now()}.png',
+//       );
+//
+//       XFile picture = await _controller.takePicture();
+//       picture.saveTo(path);
+//       print(path);
+//
+//       // // 사진 촬영을 시도하고 저장되는 경로를 로그로 남깁니다.
+//       // await _controller.takePicture(path);
+//
+//       // 사진을 촬영하면, 새로운 화면으로 넘어갑니다.
+//       // Navigator.push(
+//       //   context,
+//       //   MaterialPageRoute(
+//       //     builder: (context) => DisplayPictureScreen(imagePath: path),
+//       //   ),
+//       // );
+//     } catch (e) {
+//     // 만약 에러가 발생하면, 콘솔에 에러 로그를 남깁니다.
+//     print(e);
+//     }
+//   }
+// }
+//
+// // 사용자가 촬영한 사진을 보여주는 위젯
+// class DisplayPictureScreen extends StatelessWidget {
+//   final String imagePath;
+//
+//   const DisplayPictureScreen({required this.imagePath});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(title: Text('Display the Picture')),
+//       // 이미지는 디바이스에 파일로 저장됩니다. 이미지를 보여주기 위해 주어진
+//       // 경로로 `Image.file`을 생성하세요.
+//       body: Image.file(File(imagePath)),
+//     );
+//   }
+// }
+
+import 'dart:async';
+import 'dart:io';
+
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:path/path.dart' show join;
+import 'package:path_provider/path_provider.dart';
 
-//catch
+Future<void> main() async {
+  // 디바이스에서 이용가능한 카메라 목록을 받아옵니다.
+  WidgetsFlutterBinding.ensureInitialized();
+  final cameras = await availableCameras();
 
-void main() {
-  runApp(const MyApp());
+  // 이용가능한 카메라 목록에서 특정 카메라를 얻습니다.
+  final firstCamera = cameras.first;
+
+  runApp(
+    MaterialApp(
+      theme: ThemeData.dark(),
+      home: TakePictureScreen(
+        // 적절한 카메라를 TakePictureScreen 위젯에게 전달합니다.
+        camera: firstCamera,
+      ),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+// 사용자가 주어진 카메라를 사용하여 사진을 찍을 수 있는 화면
+class TakePictureScreen extends StatefulWidget {
+  final CameraDescription camera;
 
-  // This widget is the root of your application.
+  TakePictureScreen({
+    required this.camera,
+  });
+
+  @override
+  TakePictureScreenState createState() => TakePictureScreenState();
+}
+
+class TakePictureScreenState extends State<TakePictureScreen> {
+  late CameraController _controller;
+  late Future<void> _initializeControllerFuture;
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.camera == null) {
+      print('No camera is found');
+    } else {
+      // 카메라의 현재 출력물을 보여주기 위해 CameraController를 생성합니다.
+      _controller = CameraController(
+        // 이용 가능한 카메라 목록에서 특정 카메라를 가져옵니다.
+        widget.camera,
+
+        // 적용할 해상도를 지정합니다.
+        ResolutionPreset.medium,
+      );
+      _initializeControllerFuture = _controller.initialize();
+
+      caller();
+    }
+  }
+
+  @override
+  void dispose() {
+    // 위젯의 생명주기 종료시 컨트롤러 역시 해제시켜줍니다.
+    _controller.dispose();
+    super.dispose();
+  }
+
+  Future<void> caller() async {
+    try {
+      // 카메라 초기화가 완료됐는지 확인합니다.
+      await _initializeControllerFuture;
+
+      _controller.startImageStream(
+         (CameraImage image) async {
+            print("here!!!!");
+         }
+      );
+
+      // path 패키지를 사용하여 이미지가 저장될 경로를 지정합니다.
+      final path = join(
+        // 본 예제에서는 임시 디렉토리에 이미지를 저장합니다. `path_provider`
+        // 플러그인을 사용하여 임시 디렉토리를 찾으세요.
+        (await getTemporaryDirectory()).path,
+        '${DateTime.now()}.png',
+      );
+
+      XFile picture = await _controller.takePicture();
+      picture.saveTo(path);
+      print(path);
+
+      // // 사진 촬영을 시도하고 저장되는 경로를 로그로 남깁니다.
+      // await _controller.takePicture(path);
+
+      //사진을 촬영하면, 새로운 화면으로 넘어갑니다.
+      //   Navigator.push(
+      //     context,
+      //     MaterialPageRoute(
+      //       builder: (context) => DisplayPictureScreen(imagePath: path),
+      //     ),
+      //   );
+      // }
+    }catch (e) {
+      // 만약 에러가 발생하면, 콘솔에 에러 로그를 남깁니다.
+      print("error is here!");
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
+    return Scaffold(
+      appBar: AppBar(title: Text('Take a picture')),
+      // 카메라 프리뷰를 보여주기 전에 컨트롤러 초기화를 기다려야 합니다. 컨트롤러 초기화가
+      // 완료될 때까지 FutureBuilder를 사용하여 로딩 스피너를 보여주세요.
+      body: FutureBuilder<void>(
+        future: _initializeControllerFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            // Future가 완료되면, 프리뷰를 보여줍니다.
+            return CameraPreview(_controller);
+          } else {
+            // 그렇지 않다면, 진행 표시기를 보여줍니다.
+            return Center(child: CircularProgressIndicator());
+          }
+        },
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+// 사용자가 촬영한 사진을 보여주는 위젯
+class DisplayPictureScreen extends StatelessWidget {
+  final String imagePath;
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+  DisplayPictureScreen({required this.imagePath});
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      appBar: AppBar(title: Text('Display the Picture')),
+      // 이미지는 디바이스에 파일로 저장됩니다. 이미지를 보여주기 위해 주어진
+      // 경로로 `Image.file`을 생성하세요.
+      body: Image.file(File(imagePath)),
     );
   }
 }
