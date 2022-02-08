@@ -1,33 +1,40 @@
-// import 'package:camera/camera.dart';
-// import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
-// import 'hud.dart';
+import 'package:camera/camera.dart';
+import 'package:flutter/material.dart';
+
+import 'hud.dart';
+
+
+class home extends StatefulWidget {
+  final CameraDescription camera;
+
+  home({
+    required this.camera,
+  });
+
+  @override
+  _homeState createState() => _homeState();
+}
+
+class _homeState extends State<home> {
+  late CameraController _controller;
 //
-// class Home extends StatefulWidget {
-//   final CameraDescription camera;
-//   const Home(CameraDescription camera);
-//
-//   @override
-//   _HomeState createState() => _HomeState(camera: camera);
-// }
-//
-// class _HomeState extends State<Home> {
-//   final CameraDescription camera;
-//   _HomeState(@required this.camera, {CameraDescription camera});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: ListView(
-//         children: [
-//           IconButton(
-//             icon: Icon(Icons.arrow_forward_ios),
-//             onPressed: () {
-//               Get.to(Hud(camera: camera));
-//             },
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: ListView(
+        children: [
+          TextButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TakePictureScreen(camera: widget.camera)),
+              );
+            },
+            child: Text('hud'),
+          ),
+          //여기에 추가해서 진행하기
+        ],
+      ),
+    );
+  }
+}
