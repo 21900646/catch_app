@@ -125,6 +125,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
         (await getTemporaryDirectory()).path,
         '${DateTime.now()}.png',
       );
+      //
 
       XFile picture = await _controller.takePicture();
       picture.saveTo(path);
