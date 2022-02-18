@@ -7,7 +7,7 @@ class AppTextStyle{
     fontWeight: FontWeight.w500,
     fontSize: 60.sp,
     height: 90.sp/60.sp,
-    letterSpacing: -y1.sp
+    letterSpacing: -1.sp
   );
 
   static TextStyle headline2 = GoogleFonts.notoSans(
