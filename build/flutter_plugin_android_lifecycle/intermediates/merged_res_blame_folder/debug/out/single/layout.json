@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "/Users/gwon-yuli/AndroidStudioProjects/catch_app/build/flutter_plugin_android_lifecycle/intermediates/res/merged/debug/layout/notification_template_icon_group.xml",
+        "source": "/Users/gwon-yuli/.gradle/caches/transforms-2/files-2.1/ff453976176a403e13d8ed149ba417dd/core-1.6.0/res/layout/notification_template_icon_group.xml"
+    },
+    {
+        "merged": "/Users/gwon-yuli/AndroidStudioProjects/catch_app/build/flutter_plugin_android_lifecycle/intermediates/res/merged/debug/layout/notification_action_tombstone.xml",
+        "source": "/Users/gwon-yuli/.gradle/caches/transforms-2/files-2.1/ff453976176a403e13d8ed149ba417dd/core-1.6.0/res/layout/notification_action_tombstone.xml"
+    },
+    {
+        "merged": "/Users/gwon-yuli/AndroidStudioProjects/catch_app/build/flutter_plugin_android_lifecycle/intermediates/res/merged/debug/layout/custom_dialog.xml",
+        "source": "/Users/gwon-yuli/.gradle/caches/transforms-2/files-2.1/ff453976176a403e13d8ed149ba417dd/core-1.6.0/res/layout/custom_dialog.xml"
+    },
+    {
+        "merged": "/Users/gwon-yuli/AndroidStudioProjects/catch_app/build/flutter_plugin_android_lifecycle/intermediates/res/merged/debug/layout/notification_template_part_chronometer.xml",
+        "source": "/Users/gwon-yuli/.gradle/caches/transforms-2/files-2.1/ff453976176a403e13d8ed149ba417dd/core-1.6.0/res/layout/notification_template_part_chronometer.xml"
+    },
+    {
+        "merged": "/Users/gwon-yuli/AndroidStudioProjects/catch_app/build/flutter_plugin_android_lifecycle/intermediates/res/merged/debug/layout/notification_template_part_time.xml",
+        "source": "/Users/gwon-yuli/.gradle/caches/transforms-2/files-2.1/ff453976176a403e13d8ed149ba417dd/core-1.6.0/res/layout/notification_template_part_time.xml"
+    },
+    {
+        "merged": "/Users/gwon-yuli/AndroidStudioProjects/catch_app/build/flutter_plugin_android_lifecycle/intermediates/res/merged/debug/layout/notification_action.xml",
+        "source": "/Users/gwon-yuli/.gradle/caches/transforms-2/files-2.1/ff453976176a403e13d8ed149ba417dd/core-1.6.0/res/layout/notification_action.xml"
+    }
+]
