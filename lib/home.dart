@@ -1,9 +1,14 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
+// import 'detectObject/camera.dart';
+// import 'detectObject/home.dart';
+
 import 'hud.dart';
 import 'main.dart';
 import 'main_screen.dart';
+  
+List<CameraDescription>? cameras;
 
 class home extends StatefulWidget {
   final CameraDescription camera;
@@ -18,21 +23,34 @@ class home extends StatefulWidget {
 
 class _homeState extends State<home> {
   late CameraController _controller;
-
-  //
+  late final List<CameraDescription> cameras;
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
         children: [
-          TextButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => TakePictureScreen(camera: widget.camera)),
-              );
-            },
-            child: Text('hud'),
+          Column(
+            children: [
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => TakePictureScreen(camera: widget.camera)),
+                  );
+                },
+                child: Text('hud'),
+              ),
+              // TextButton(
+              //   onPressed: () {
+              //     Navigator.push(
+              //       context,
+              //       MaterialPageRoute(builder: (context) => HomePage(cameras!)),
+              //     );
+              //   },
+              //   child: Text('object'),
+              // ),
+            ],
           ),
 
           TextButton(

@@ -20,12 +20,13 @@ class TakePictureScreen extends StatefulWidget {
 
 
 class TakePictureScreenState extends State<TakePictureScreen> {
-  late CameraController _controller;
-  late Future<void> _initializeControllerFuture;
+  CameraController? _controller;
+  Future<void>? _initializeControllerFuture;
 
   @override
   void initState() {
     super.initState();
+    _initializeControllerFuture = _controller!.initialize();
 
     if (widget.camera == null) {
       print('No camera is found');
@@ -38,7 +39,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
         // 적용할 해상도를 지정합니다.
         ResolutionPreset.medium,
       );
-      _initializeControllerFuture = _controller.initialize();
+      _initializeControllerFuture = _controller!.initialize();
 
       caller();
     }
@@ -47,7 +48,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
   @override
   void dispose() {
     // 위젯의 생명주기 종료시 컨트롤러 역시 해제시켜줍니다.
-    _controller.dispose();
+    _controller!.dispose();
     super.dispose();
   }
 
@@ -70,7 +71,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
         '${DateTime.now()}.png',
       );
 
-      XFile picture = await _controller.takePicture();
+      XFile picture = await _controller!.takePicture();
       picture.saveTo(path);
       print(path);
 
@@ -109,7 +110,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             // Future가 완료되면, 프리뷰를 보여줍니다.
-            return CameraPreview(_controller);
+            return CameraPreview(_controller!);
           } else {
             // 그렇지 않다면, 진행 표시기를 보여줍니다.
             return Center(child: CircularProgressIndicator());
