@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">305940971586-bm9pr15n3amn5ltiu9ssnolnij0oj7le.apps.googleusercontent.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">305940971586</string>
+    <string name="google_api_key" translatable="false">AIzaSyCrfU1bwY9xo40kCY7te7XIXucuET7Qf1Q</string>
+    <string name="google_app_id" translatable="false">1:305940971586:android:242aee7e6c50d06fdaaddb</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyCrfU1bwY9xo40kCY7te7XIXucuET7Qf1Q</string>
+    <string name="google_storage_bucket" translatable="false">turningpoint2-45346.appspot.com</string>
+    <string name="project_id" translatable="false">turningpoint2-45346</string>
+</resources>
